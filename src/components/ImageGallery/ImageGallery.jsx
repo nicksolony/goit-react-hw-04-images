@@ -1,11 +1,12 @@
 import React from "react";
-import {ImagesGallery} from './ImageGallery.styled';
+import { ImagesGallery } from './ImageGallery.styled';
+import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem";
 
 export const ImageGallery = ({ images }) => {
     return (
         <ImagesGallery>
-            <li>image 1</li>
-            <li>image 2</li>
+            <ImageGalleryItem>image 1</ImageGalleryItem>
+            <ImageGalleryItem>image 2</ImageGalleryItem>
         </ImagesGallery>        
     );
 };
