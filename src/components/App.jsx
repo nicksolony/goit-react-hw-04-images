@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { SearchBar } from './Searchbar/Searchbar';
+import { fetchPhotos } from '../services/pixabay-api';
 
 export class App extends Component {
-  
+
+  handleSearch = e => {
+    let searchObject = {
+      searchQuery: 'yellow flower',
+      currentPage: 1
+    };
+    e.preventDefault();
+    fetchPhotos(searchObject)
+  }
+    
   render () {
   return (
     <div
@@ -15,7 +25,7 @@ export class App extends Component {
         color: '#010101'
       }}
     >
-      <SearchBar/>
+      <SearchBar onSubmit={this.handleSearch} />
     </div>
   );
   };

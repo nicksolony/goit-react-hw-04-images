@@ -6,8 +6,8 @@ import { Header,SearchForm,SearchButton,ButtonLabelt, ButtonLabel, SearchInput }
 export const SearchBar = ({ onSubmit }) => {
     return (
         <Header>
-            <SearchForm>
-                <SearchButton type="submit">
+            <SearchForm onSubmit={onSubmit}>
+                <SearchButton  type="submit">
                     <ButtonLabel>Search</ButtonLabel>
                 </SearchButton>
 
