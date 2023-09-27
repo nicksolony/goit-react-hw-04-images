@@ -1,4 +1,9 @@
-export const App = () => {
+import React, { Component } from 'react';
+import { SearchBar } from './Searchbar/Searchbar';
+
+export class App extends Component {
+  
+  render () {
   return (
     <div
       style={{
@@ -10,7 +15,8 @@ export const App = () => {
         color: '#010101'
       }}
     >
-      React homework template
+      <SearchBar/>
     </div>
   );
+  };
 };
