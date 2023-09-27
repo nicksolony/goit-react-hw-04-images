@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { SearchBar } from './Searchbar/Searchbar';
+import { AppContainer } from './App.styled';
 import { fetchPhotos } from '../services/pixabay-api';
+import { SearchBar } from './Searchbar/Searchbar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+
+
 
 export class App extends Component {
 
@@ -15,18 +19,10 @@ export class App extends Component {
     
   render () {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
+    <AppContainer>
       <SearchBar onSubmit={this.handleSearch} />
-    </div>
+      <ImageGallery/>
+    </AppContainer>
   );
   };
 };
