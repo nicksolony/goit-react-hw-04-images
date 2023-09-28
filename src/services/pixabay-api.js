@@ -12,11 +12,11 @@ let SAFE_SEARCH = 'true';
 let PER_PAGE = 12;
 
 
-export const fetchPhotos = ({ searchQuery = '', currentPage = 1}) => {
+export const pixabayApi = ({ searchQuery = '', currentPage = 1}) => {
   return axios
     .get(
       `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=${IMAGE_TYPE}&orientation=${ORIENT}&safesearch=${SAFE_SEARCH}&per_page=${PER_PAGE}&page=${currentPage}`,
     )
-    .then(response => console.log(response.data.hits));
+    .then(response => {return response.data.hits});
 };
 
