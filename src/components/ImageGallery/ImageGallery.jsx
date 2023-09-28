@@ -5,8 +5,9 @@ import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem";
 export const ImageGallery = ({ images }) => {
     return (
         <ImagesGallery>
-            <ImageGalleryItem>image 1</ImageGalleryItem>
-            <ImageGalleryItem>image 2</ImageGalleryItem>
+            {
+                images.map(({ id, webformatURL, largeImageURL, tags }) => <ImageGalleryItem key={id} webformatURL={webformatURL} largeImageURL={largeImageURL} tags={tags} />)
+            }
         </ImagesGallery>        
     );
 };

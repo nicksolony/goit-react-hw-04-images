@@ -2,10 +2,10 @@ import React from "react";
 import { GalleryItem, Image } from "./ImageGalleryItem.styled";
 
 
-export const ImageGalleryItem = ({ id,webformatURL,largeImageURL }) => {
+export const ImageGalleryItem = ({ id,webformatURL,largeImageURL, tags }) => {
     return (
-        <GalleryItem key={id}>
-            <Image src={webformatURL} alt="" />
+        <GalleryItem>
+            <Image src={webformatURL} alt={tags} largeImageURL={ largeImageURL} />
         </GalleryItem>
     );
 };

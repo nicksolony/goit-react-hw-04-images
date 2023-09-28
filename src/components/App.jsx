@@ -54,7 +54,7 @@ export class App extends Component {
   return (
     <AppContainer>
       <SearchBar onSubmit={this.onChangeQuery} />
-      <ImageGallery/>
+      <ImageGallery images={this.state.photos } />
     </AppContainer>
   );
   };
