@@ -33,8 +33,8 @@ export class App extends Component {
   };
 
   fetchPhotos = () => {
-    const { currentPage, searchQuery } = this.state;
-    const options = { searchQuery, currentPage };
+    let { currentPage, searchQuery } = this.state;
+    let options = { searchQuery, currentPage };
 
     this.setState({ isLoading: true });
 
@@ -51,12 +51,15 @@ export class App extends Component {
 
   };
     
-  render () {
+  render() {
+    let { photos, isLoading } = this.state;
+    let showLoadMore = photos.length > 0 && !isLoading;
+
   return (
     <AppContainer>
       <SearchBar onSubmit={this.onChangeQuery} />
-      <ImageGallery images={this.state.photos} />
-      <Button loadMore={this.fetchPhotos}/>
+      <ImageGallery images={photos} />
+      {showLoadMore && <Button loadMore={this.fetchPhotos}/>}
     </AppContainer>
   );
   };
