@@ -4,7 +4,8 @@ import { pixabayApi } from '../services/pixabay-api';
 import SearchBar from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
-import { MagnifyingGlass } from  'react-loader-spinner'
+import { MagnifyingGlass } from 'react-loader-spinner';
+import { Modal } from './Modal/Modal';
 
 
 
@@ -17,7 +18,9 @@ export class App extends Component {
     currentPage: 1,
     searchQuery: '',
     isLoading: false,
-    error:null,
+    error: null,
+    showModal: false,
+    modalImage:{},
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -43,7 +46,6 @@ export class App extends Component {
 
     pixabayApi(options)
       .then(photos => {
-        console.log(photos);
         this.setState(prevState => ({
           photos: [...prevState.photos, ...photos],
           currentPage: prevState.currentPage + 1,
@@ -53,15 +55,32 @@ export class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
 
   };
+
+  toggleModal = (e) => {
+    if (e) {
+      this.setState(({
+        modalImage: {
+          src: e.target.id,
+          alt: e.target.alt
+        }
+      }));  
+    } else {
+      this.setState(({modalImage: {}}));
+    }
+    
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
     
   render() {
-    let { photos, isLoading } = this.state;
+    let { photos, isLoading, showModal, modalImage } = this.state;
     let showLoadMore = photos.length > 0 && !isLoading;
 
   return (
     <AppContainer>
       <SearchBar onSubmit={this.onChangeQuery} />
-      <ImageGallery images={photos} />
+      <ImageGallery images={photos} onClick={ this.toggleModal } />
       {showLoadMore && <Button loadMore={this.fetchPhotos} />}
       {isLoading && <MagnifyingGlass
         visible={true}
@@ -73,6 +92,7 @@ export class App extends Component {
         glassColor = '#c0efff'
         color = '#e15b64'
       />}
+      {showModal && (<Modal onClose={this.toggleModal} image={ modalImage} />)}
     </AppContainer>
   );
   };
