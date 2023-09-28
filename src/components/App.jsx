@@ -3,6 +3,7 @@ import { AppContainer } from './App.styled';
 import { pixabayApi } from '../services/pixabay-api';
 import SearchBar from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Button } from './Button/Button';
 
 
 
@@ -54,7 +55,8 @@ export class App extends Component {
   return (
     <AppContainer>
       <SearchBar onSubmit={this.onChangeQuery} />
-      <ImageGallery images={this.state.photos } />
+      <ImageGallery images={this.state.photos} />
+      <Button loadMore={this.fetchPhotos}/>
     </AppContainer>
   );
   };
