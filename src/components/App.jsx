@@ -4,6 +4,9 @@ import { pixabayApi } from '../services/pixabay-api';
 import SearchBar from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
+import { MagnifyingGlass } from  'react-loader-spinner'
+
+
 
 
 
@@ -59,7 +62,17 @@ export class App extends Component {
     <AppContainer>
       <SearchBar onSubmit={this.onChangeQuery} />
       <ImageGallery images={photos} />
-      {showLoadMore && <Button loadMore={this.fetchPhotos}/>}
+      {showLoadMore && <Button loadMore={this.fetchPhotos} />}
+      {isLoading && <MagnifyingGlass
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="MagnifyingGlass-loading"
+        wrapperStyle={{}}
+        wrapperClass="MagnifyingGlass-wrapper"
+        glassColor = '#c0efff'
+        color = '#e15b64'
+      />}
     </AppContainer>
   );
   };
