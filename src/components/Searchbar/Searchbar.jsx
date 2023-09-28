@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header,SearchForm,SearchButton,ButtonLabelt, ButtonLabel, SearchInput } from './Searchbar.styled';
+import { Header,SearchForm,SearchButton, ButtonLabel, SearchInput } from './Searchbar.styled';
 
 
 export const SearchBar = ({ onSubmit }) => {
