@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { AppContainer } from './App.styled';
 import { pixabayApi } from '../services/pixabay-api';
 import SearchBar from './Searchbar/Searchbar';
@@ -11,77 +11,104 @@ import { Modal } from './Modal/Modal';
 
 
 
-export class App extends Component {
+export const App = () => {
 
-  state = {
-    photos:[],
-    currentPage: 1,
-    searchQuery: '',
-    isLoading: false,
-    error: null,
-    showModal: false,
-    modalImage:{},
+  // state = {
+  //   photos:[],
+  //   currentPage: 1,
+  //   searchQuery: '',
+  //   isLoading: false,
+  //   error: null,
+  //   showModal: false,
+  //   modalImage:{},
+  // };
+
+  const [photos, setPhotos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalImage, setModalImage] = useState({});
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.searchQuery !== this.state.searchQuery) {
+  //     this.fetchPhotos();
+  //   }
+  // };
+
+  useEffect(() => {
+    fetchPhotos();
+  }, [searchQuery]);
+
+  const onChangeQuery = (query) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+    setPhotos([]);
+    setError(null);
+
+    // this.setState({
+    //   searchQuery: query,
+    //   currentPage: 1,
+    //   photos: [],
+    //   error: null,
+    // });
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchQuery !== this.state.searchQuery) {
-      this.fetchPhotos();
-    }
-  }
+  const fetchPhotos = () => {
+    // let { currentPage, searchQuery } = this.state;
+    // let options = { searchQuery, currentPage };
 
-  onChangeQuery = query => {
-    this.setState({
-      searchQuery: query,
-      currentPage: 1,
-      photos: [],
-      error: null,
-    });
-  };
+    // this.setState({ isLoading: true });
+    setIsLoading(true);
 
-  fetchPhotos = () => {
-    let { currentPage, searchQuery } = this.state;
-    let options = { searchQuery, currentPage };
-
-    this.setState({ isLoading: true });
-
-    pixabayApi(options)
+    pixabayApi({ searchQuery, currentPage })
       .then(photos => {
-        this.setState(prevState => ({
-          photos: [...prevState.photos, ...photos],
-          currentPage: prevState.currentPage + 1,
-        }));
+        setPhotos([...photos, ...photos]);
+        setCurrentPage(currentPage + 1);
+        // this.setState(prevState => ({
+        //   photos: [...prevState.photos, ...photos],
+        //   currentPage: prevState.currentPage + 1,
+        // }));
       })
-      .catch(error => this.setState({ error }))
-      .finally(() => this.setState({ isLoading: false }));
+      .catch(error => setError(error))
+      .finally(() => setIsLoading(false));
 
   };
 
-  toggleModal = (e) => {
+  const toggleModal = (e) => {
     if (e) {
-      this.setState(({
-        modalImage: {
-          src: e.target.id,
-          alt: e.target.alt
-        }
-      }));  
+      setModalImage({
+        src: e.target.id,
+        alt: e.target.alt
+      })
+      // this.setState(({
+      //   modalImage: {
+      //     src: e.target.id,
+      //     alt: e.target.alt
+      //   }
+      // }));  
     } else {
-      this.setState(({modalImage: {}}));
-    }
-    
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+      // this.setState(({ modalImage: {} }));
+      setModalImage({});
+    };
+   
+    setShowModal(!showModal);
+
+    // this.setState(({ showModal }) => ({
+    //   showModal: !showModal,
+    // }));
   };
     
-  render() {
-    let { photos, isLoading, showModal, modalImage } = this.state;
+  
+    // let { photos, isLoading, showModal, modalImage } = this.state;
     let showLoadMore = photos.length > 0 && !isLoading;
 
   return (
     <AppContainer>
-      <SearchBar onSubmit={this.onChangeQuery} />
-      <ImageGallery images={photos} onClick={ this.toggleModal } />
-      {showLoadMore && <Button loadMore={this.fetchPhotos} />}
+      <SearchBar onSubmit={onChangeQuery} />
+      <ImageGallery images={photos} onClick={toggleModal } />
+      {showLoadMore && <Button loadMore={fetchPhotos} />}
       {isLoading && <MagnifyingGlass
         visible={true}
         height="80"
@@ -92,8 +119,7 @@ export class App extends Component {
         glassColor = '#c0efff'
         color = '#e15b64'
       />}
-      {showModal && (<Modal onClose={this.toggleModal} image={ modalImage} />)}
+      {showModal && (<Modal onClose={toggleModal} image={modalImage} />)}
     </AppContainer>
   );
   };
-};
