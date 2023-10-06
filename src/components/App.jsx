@@ -18,7 +18,6 @@ export const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState({});
 
@@ -31,7 +30,6 @@ export const App = () => {
     setSearchQuery(query);
     setCurrentPage(1);
     setPhotos([]);
-    setError(null);
 
 
   };
@@ -46,7 +44,7 @@ export const App = () => {
         setCurrentPage(currentPage + 1);
 
       })
-      .catch(error => setError(error))
+      .catch(error => console.log(error))
       .finally(() => setIsLoading(false));
 
   };
