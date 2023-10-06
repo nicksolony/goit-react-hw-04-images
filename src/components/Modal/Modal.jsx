@@ -1,46 +1,35 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import { createPortal } from "react-dom";
 import { Overlay,ModalWindow } from "./Modal.styled";
 
-export const Modal = (onClose, image, showModal) => {
-    
+export class Modal extends Component {
 
-    // componentDidMount() {
-    //     window.addEventListener('keydown', this.handleKeyDown);
-    // };
+    componentDidMount() {
+        window.addEventListener('keydown', this.handleKeyDown);
+    };
 
-    useEffect(() => {
-        window.addEventListener('keydown', handleKeyDown);
-    }, []);
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleKeyDown);
+    };
 
-
-    // componentWillUnmount() {
-    //     window.removeEventListener('keydown', this.handleKeyDown);
-    // };
-
-    useEffect(() => {
-        if (!showModal) {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [showModal]);
-
-    const handleKeyDown = (e) => {
+    handleKeyDown = e => {
         if (e.code === 'Escape') {
-            onClose();
+            this.props.onClose();
         };
     };
 
-    const handleBackdropClick = (event) => {
+    handleBackdropClick = event => {
       if (event.currentTarget === event.target) {
-        onClose();
+        this.props.onClose();
         };
     };
     
-    
-        let { src, alt } = image;
+    render() {
+
+        let { src, alt } = this.props.image;
 
         return createPortal(
-            <Overlay onClick={handleBackdropClick}>
+            <Overlay onClick={this.handleBackdropClick}>
               <ModalWindow>
                 <img src={src} alt={alt} />
               </ModalWindow>
@@ -48,3 +37,4 @@ export const Modal = (onClose, image, showModal) => {
             document.body
         )
     };
+};

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AppContainer } from './App.styled';
 import { pixabayApi } from '../services/pixabay-api';
 import SearchBar from './Searchbar/Searchbar';
@@ -119,7 +119,7 @@ export const App = () => {
         glassColor = '#c0efff'
         color = '#e15b64'
       />}
-      {showModal && (<Modal onClose={toggleModal} image={modalImage} showModal={showModal} />)}
+      {showModal && (<Modal onClose={toggleModal} image={modalImage} />)}
     </AppContainer>
   );
   };
