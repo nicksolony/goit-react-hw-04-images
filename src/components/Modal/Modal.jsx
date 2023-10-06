@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Overlay,ModalWindow } from "./Modal.styled";
-import { useState } from "react";
 
 export const Modal = (onClose, image, showModal) => {
     
