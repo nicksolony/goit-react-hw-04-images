@@ -119,7 +119,7 @@ export const App = () => {
         glassColor = '#c0efff'
         color = '#e15b64'
       />}
-      {showModal && (<Modal onClose={toggleModal} image={modalImage} />)}
+      {showModal && (<Modal onClose={toggleModal} image={modalImage} showModal={showModal} />)}
     </AppContainer>
   );
   };

@@ -1,35 +1,39 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Overlay,ModalWindow } from "./Modal.styled";
 
-export class Modal extends Component {
+export const Modal= ({image, onClose, showModal}) => {
 
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown);
-    };
 
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown);
-    };
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+    }, []);
 
-    handleKeyDown = e => {
+    useEffect(() => {
+        if (!showModal) {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [showModal]);
+    
+
+    const handleKeyDown = (e) => {
         if (e.code === 'Escape') {
-            this.props.onClose();
+            onClose();
         };
     };
 
-    handleBackdropClick = event => {
+    const handleBackdropClick = (event) => {
       if (event.currentTarget === event.target) {
-        this.props.onClose();
+        onClose();
         };
     };
     
-    render() {
+    
 
-        let { src, alt } = this.props.image;
+        let { src, alt } = image;
 
         return createPortal(
-            <Overlay onClick={this.handleBackdropClick}>
+            <Overlay onClick={handleBackdropClick}>
               <ModalWindow>
                 <img src={src} alt={alt} />
               </ModalWindow>
@@ -37,4 +41,3 @@ export class Modal extends Component {
             document.body
         )
     };
-};
