@@ -7,12 +7,14 @@ export const Modal= ({image, onClose, showModal}) => {
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (!showModal) {
             window.removeEventListener('keydown', handleKeyDown);
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showModal]);
     
 
