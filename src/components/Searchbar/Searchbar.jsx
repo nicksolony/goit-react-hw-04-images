@@ -4,18 +4,18 @@ import { Header,SearchForm,SearchButton, ButtonLabel, SearchInput } from './Sear
 
 
 export const SearchBar = ({onSubmit}) => {
-    // state = { searchQuery: '' };
+    
     const [searchQuery, setSearchQuery] = useState('');
 
     const handleChange = (e) => {
-        // this.setState({ searchQuery: e.currentTarget.value });
+        
         setSearchQuery(e.currentTarget.value)
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(searchQuery);
-        // this.setState({ searchQuery: '' });
+        
     };
 
     

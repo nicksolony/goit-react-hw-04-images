@@ -13,15 +13,6 @@ import { Modal } from './Modal/Modal';
 
 export const App = () => {
 
-  // state = {
-  //   photos:[],
-  //   currentPage: 1,
-  //   searchQuery: '',
-  //   isLoading: false,
-  //   error: null,
-  //   showModal: false,
-  //   modalImage:{},
-  // };
 
   const [photos, setPhotos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,11 +22,6 @@ export const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState({});
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.searchQuery !== this.state.searchQuery) {
-  //     this.fetchPhotos();
-  //   }
-  // };
 
   useEffect(() => {
     fetchPhotos();
@@ -47,29 +33,18 @@ export const App = () => {
     setPhotos([]);
     setError(null);
 
-    // this.setState({
-    //   searchQuery: query,
-    //   currentPage: 1,
-    //   photos: [],
-    //   error: null,
-    // });
+
   };
 
   const fetchPhotos = () => {
-    // let { currentPage, searchQuery } = this.state;
-    // let options = { searchQuery, currentPage };
 
-    // this.setState({ isLoading: true });
     setIsLoading(true);
 
     pixabayApi({ searchQuery, currentPage })
       .then(photos => {
         setPhotos([...photos, ...photos]);
         setCurrentPage(currentPage + 1);
-        // this.setState(prevState => ({
-        //   photos: [...prevState.photos, ...photos],
-        //   currentPage: prevState.currentPage + 1,
-        // }));
+
       })
       .catch(error => setError(error))
       .finally(() => setIsLoading(false));
@@ -82,26 +57,18 @@ export const App = () => {
         src: e.target.id,
         alt: e.target.alt
       })
-      // this.setState(({
-      //   modalImage: {
-      //     src: e.target.id,
-      //     alt: e.target.alt
-      //   }
-      // }));  
+  
     } else {
-      // this.setState(({ modalImage: {} }));
+
       setModalImage({});
     };
    
     setShowModal(!showModal);
 
-    // this.setState(({ showModal }) => ({
-    //   showModal: !showModal,
-    // }));
+
   };
     
   
-    // let { photos, isLoading, showModal, modalImage } = this.state;
     let showLoadMore = photos.length > 0 && !isLoading;
 
   return (
