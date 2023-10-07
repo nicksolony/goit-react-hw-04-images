@@ -31,8 +31,6 @@ export const App = () => {
     setSearchQuery(query);
     setCurrentPage(1);
     setPhotos([]);
-
-
   };
 
   const fetchPhotos = () => {
@@ -40,8 +38,8 @@ export const App = () => {
     setIsLoading(true);
 
     pixabayApi({ searchQuery, currentPage })
-      .then(photos => {
-        setPhotos([...photos, ...photos]);
+      .then(newPhotos => {
+        setPhotos([...photos, ...newPhotos]);
         setCurrentPage(currentPage + 1);
 
       })
